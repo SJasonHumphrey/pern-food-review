@@ -1,9 +1,14 @@
 import React, { useContext, useEffect } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestuarantsContext';
+import { useNavigate } from "react-router-dom";
+import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
+import "./List.css";
+
 
 const List = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantsContext)
+  let navigate = useNavigate();
     useEffect(() =>{
         async function fetchData () {
           const response = await RestaurantFinder.get("/")
@@ -12,11 +17,22 @@ const List = (props) => {
         fetchData();
     },[]);
 
+    const handleDelete = async (id) => {
+    const response = await RestaurantFinder.delete(`/${id}`);
+    setRestaurants(restaurants.filter(restaurant => {
+      return restaurant.id !== id
+    }))
+    }
+
+    const handleUpdate = async (id) => {
+    const response = await navigate(`/restaurants/${id}/update`)
+    }
+
   return (
     <div className="list-group m-4">
         <table className="table table-hover">
             <thead>
-                <tr className="bg-primary text-white">
+                <tr className="bg-warning text-white">
                     <th scope="col">Restaurant</th>
                     <th scope="col">Location</th>
                     <th scope="col">Price Range</th>
@@ -25,7 +41,7 @@ const List = (props) => {
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
-            <tbody className="table-dark">
+            <tbody className="table-light">
                 {restaurants && restaurants.map((restaurant) => {
                     return (
                       <tr key={restaurant.id}>
@@ -34,10 +50,10 @@ const List = (props) => {
                        <td>{"$".repeat(restaurant.price_range)}</td>
                        <td>Reviews</td>
                        <td>
-                           <button className="btn btn-warning">Update</button>
+                           <BsPencilSquare onClick={() => handleUpdate(restaurant.id)} className="text-success"/>
                        </td>
                        <td>
-                           <button className="btn btn-danger">Update</button>
+                           <BsTrashFill onClick={() => handleDelete(restaurant.id)} className="text-danger"/>
                        </td>
                       </tr>
                     )
