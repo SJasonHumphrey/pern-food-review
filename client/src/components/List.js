@@ -17,15 +17,21 @@ const List = (props) => {
         fetchData();
     },[]);
 
-    const handleDelete = async (id) => {
-    const response = await RestaurantFinder.delete(`/${id}`);
+    const handleDelete = async (e,id) => {
+      e.stopPropagation();
+      await RestaurantFinder.delete(`/${id}`);
     setRestaurants(restaurants.filter(restaurant => {
       return restaurant.id !== id
     }))
     }
 
-    const handleUpdate = async (id) => {
-    const response = await navigate(`/restaurants/${id}/update`)
+    const handleUpdate = async (e, id) => {
+      e.stopPropagation();
+       await navigate(`/restaurants/${id}/update`)
+    }
+
+    const handleRestaurantSelect = async (id) => {
+      await navigate(`/restaurants/${id}`)
     }
 
   return (
@@ -44,16 +50,16 @@ const List = (props) => {
             <tbody className="table-light">
                 {restaurants && restaurants.map((restaurant) => {
                     return (
-                      <tr key={restaurant.id}>
+                      <tr onClick={(TV) => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
                        <td>{restaurant.restaurant_name}</td>
                        <td>{restaurant.location}</td>
                        <td>{"$".repeat(restaurant.price_range)}</td>
                        <td>Reviews</td>
                        <td>
-                           <BsPencilSquare onClick={() => handleUpdate(restaurant.id)} className="text-success"/>
+                           <BsPencilSquare onClick={(e) => handleUpdate(e,restaurant.id)} className="text-success"/>
                        </td>
                        <td>
-                           <BsTrashFill onClick={() => handleDelete(restaurant.id)} className="text-danger"/>
+                           <BsTrashFill onClick={(e) => handleDelete(e,restaurant.id)} className="text-danger"/>
                        </td>
                       </tr>
                     )
