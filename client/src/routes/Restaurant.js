@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { RestaurantsContext } from '../context/RestuarantsContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
-import Rating from "../components/Rating";
+import Rating from "../components/StarRating";
 import AddReview from "../components/AddReview";
 import Reviews from "../components/Reviews";
+
 
 
 const Restaurant = () => {
@@ -18,8 +19,10 @@ const Restaurant = () => {
     setSelectedRestaurant(response.data.data)
     }
     fetchData();
-  })
- 
+  },[])
+
+console.log(selectedRestaurant)
+
   return (
     <div>
       {selectedRestaurant && (
@@ -28,7 +31,7 @@ const Restaurant = () => {
             {selectedRestaurant.restaurants.restaurant_name}
           </h1>
           <div className="text-center">
-            <Rating />
+            <Rating rating={selectedRestaurant.restaurants.average_rating}/>
           </div>
           <div className="mt-3">
             <Reviews reviews={selectedRestaurant.reviews} />

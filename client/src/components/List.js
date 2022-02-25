@@ -4,6 +4,7 @@ import { RestaurantsContext } from '../context/RestuarantsContext';
 import { useNavigate } from "react-router-dom";
 import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 import "./List.css";
+import Rating from './StarRating';
 
 
 const List = (props) => {
@@ -34,6 +35,18 @@ const List = (props) => {
       await navigate(`/restaurants/${id}`)
     }
 
+    const renderRating = (restaurant) => {
+      if (!restaurant.count) {
+        return <span className="text-danger">0 reviews</span>;
+      }
+      return (
+        <>
+          <Rating rating={restaurant.id} />
+          <span className="text-danger">({restaurant.count})</span>
+        </>
+      );
+    };
+
   return (
     <div className="list-group m-4">
         <table className="table table-hover">
@@ -50,11 +63,11 @@ const List = (props) => {
             <tbody className="table-light">
                 {restaurants && restaurants.map((restaurant) => {
                     return (
-                      <tr onClick={(TV) => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
+                      <tr onClick={() => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
                        <td>{restaurant.restaurant_name}</td>
                        <td>{restaurant.location}</td>
                        <td>{"$".repeat(restaurant.price_range)}</td>
-                       <td>Reviews</td>
+                       <td>{renderRating(restaurant)}</td>
                        <td>
                            <BsPencilSquare onClick={(e) => handleUpdate(e,restaurant.id)} className="text-success"/>
                        </td>
