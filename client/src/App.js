@@ -5,6 +5,7 @@ import UpdatePage from './routes/UpdatePage';
 import {BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RestaurantsContextProvider } from './context/RestuarantsContext';
+import "./App.css"
 
 function App() {
   return (

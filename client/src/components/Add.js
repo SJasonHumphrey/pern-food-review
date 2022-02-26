@@ -3,7 +3,7 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestuarantsContext';
 
 const Add = () => {
-
+    
     const { addRestaurants } = useContext(RestaurantsContext)
 
     const [name, setName] = useState("");
@@ -17,7 +17,9 @@ const handleSubmit = async(e) => {
         price_range: priceRange
     })
     addRestaurants(response.data.data.restaurant)
-    console.log(response)
+    setName("");
+    setLocation("");
+    setPriceRange("")
 }
   return (
     <div className="mb-4">

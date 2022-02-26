@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RestaurantFinder from "../apis/RestaurantFinder";
 
 const AddReview = () => {
@@ -8,6 +8,8 @@ const AddReview = () => {
   const [rating, setRating] = useState("Rating");
   const [review, setReview] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmitReview = async(e) => {
       e.preventDefault();
       await RestaurantFinder.post(`/${id}/addReview`, {
@@ -15,6 +17,7 @@ const AddReview = () => {
         review: review,
         rating: rating
       })
+      navigate("/");
   }
 
   return (

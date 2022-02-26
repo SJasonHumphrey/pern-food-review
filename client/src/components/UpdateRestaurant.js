@@ -11,12 +11,15 @@ const UpdateRestaurant = (props)=> {
     useEffect(()=>{
         const fetchData = async() => {
             const response = await RestaurantFinder.get(`/${id}`)
-            setName(response.data.data.restaurants.restaurant_name)
-            setLocation(response.data.data.restaurants.location)
-            setPriceRange(response.data.data.restaurants.price_range)
+            console.log(response)
+            setName(response.data.data.restaurant.restaurant_name)
+            setLocation(response.data.data.restaurant.location)
+            setPriceRange(response.data.data.restaurant.price_range)
         }
         fetchData();
     },[]);
+
+    
 
     let navigate = useNavigate();
 

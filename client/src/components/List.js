@@ -3,8 +3,7 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestuarantsContext';
 import { useNavigate } from "react-router-dom";
 import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
-import "./List.css";
-import Rating from './StarRating';
+import Rating from './Rating';
 
 
 const List = (props) => {
@@ -41,11 +40,14 @@ const List = (props) => {
       }
       return (
         <>
-          <Rating rating={restaurant.id} />
+        <div className="d-flex">
+          <Rating rating={restaurant.average_rating} />
           <span className="text-danger">({restaurant.count})</span>
+          </div>
         </>
       );
     };
+  
 
   return (
     <div className="list-group m-4">

@@ -1,5 +1,5 @@
 import React from "react";
-import Rating from "./StarRating";
+import Rating from "./Rating";
 
 const Reviews = ({ reviews }) => {
   return (
@@ -8,7 +8,7 @@ const Reviews = ({ reviews }) => {
         return (
           <div
             key={review.id}
-            className="card bg-light mb-3 mr-4"
+            className="card bg-light mb-3 m-2"
             style={{ maxWidth: "30%" }}
           >
             <div className="card-header d-flex justify-content-between">
