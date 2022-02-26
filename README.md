@@ -1,1 +1,2 @@
-# pern-food-review
+# PERN Stack Food Review Site
+### This is a food review site built using PostgreSQL, Express, Node and React. The CSS Framework Bootstrap was also used in the design of this site. The site can add restaurants to the list and display the results. It also displays the average review rating and number of reviews. You can also edit and delete the listings. By clicking the name of the restaurant on the list you can go to an individual restaurant page and leave a revue and rating while viewing previous reviews. 
